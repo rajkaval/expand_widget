@@ -61,6 +61,9 @@ class HomePage extends StatelessWidget {
                   ),
                   ExpandChild(
                     isExpanded: true,
+                    onExpandStateChanged: (bool isExpanded) {
+                      print("Callback got isExpanded = $isExpanded");
+                    },
                     child: Column(
                       children: <Widget>[
                         OutlineButton(

@@ -74,6 +74,8 @@ class ExpandText extends StatefulWidget {
 
   final bool isExpanded;
 
+  final Function(bool) onExpandStateChanged;
+
   const ExpandText(
     this.data, {
     Key key,
@@ -95,6 +97,7 @@ class ExpandText extends StatefulWidget {
     this.expandOnGesture = true,
     this.hideArrowOnExpanded = false,
     this.isExpanded = false,
+    this.onExpandStateChanged,
   })  : assert(
           data != null,
           'A non-null String must be provided to a ExpandText widget.',
@@ -171,6 +174,9 @@ class _ExpandTextState extends State<ExpandText>
         _isExpanded ? _controller.forward() : _controller.reverse();
       }
     });
+
+    if (widget.onExpandStateChanged != null)
+      widget.onExpandStateChanged(_isExpanded);
   }
 
   /// Builds the widget itself. If the [_isExpanded] parameter is 'true',

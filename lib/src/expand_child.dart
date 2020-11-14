@@ -52,6 +52,8 @@ class ExpandChild extends StatefulWidget {
 
   final bool isExpanded;
 
+  final Function(bool) onExpandStateChanged;
+
   const ExpandChild({
     Key key,
     this.collapsedHint,
@@ -67,6 +69,7 @@ class ExpandChild extends StatefulWidget {
     @required this.child,
     this.hideArrowOnExpanded = false,
     this.isExpanded = false,
+    this.onExpandStateChanged,
   })  : assert(hideArrowOnExpanded != null),
         super(key: key);
 
@@ -123,6 +126,9 @@ class _ExpandChildState extends State<ExpandChild>
     setState(() {
       _isExpanded = !_isExpanded;
       _isExpanded ? _controller.forward() : _controller.reverse();
+
+      if (widget.onExpandStateChanged != null)
+        widget.onExpandStateChanged(_isExpanded);
     });
   }
 
