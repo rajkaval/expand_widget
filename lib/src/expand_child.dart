@@ -50,6 +50,8 @@ class ExpandChild extends StatefulWidget {
   /// Ability to hide arrow from display when content is expanded.
   final bool hideArrowOnExpanded;
 
+  final bool isExpanded;
+
   const ExpandChild({
     Key key,
     this.collapsedHint,
@@ -64,6 +66,7 @@ class ExpandChild extends StatefulWidget {
     this.animationDuration = _kExpand,
     @required this.child,
     this.hideArrowOnExpanded = false,
+    this.isExpanded = false,
   })  : assert(hideArrowOnExpanded != null),
         super(key: key);
 
@@ -100,6 +103,9 @@ class _ExpandChildState extends State<ExpandChild>
       duration: widget.animationDuration,
       vsync: this,
     );
+
+    _isExpanded = widget.isExpanded;
+    _isExpanded ? _controller.forward() : _controller.reverse();
 
     // Initializing both animations, depending on the [_easeInCurve] curve
     _heightFactor = _controller.drive(_easeInCurve);

@@ -72,6 +72,8 @@ class ExpandText extends StatefulWidget {
   /// Ability to hide arrow from display when content is expanded.
   final bool hideArrowOnExpanded;
 
+  final bool isExpanded;
+
   const ExpandText(
     this.data, {
     Key key,
@@ -92,6 +94,7 @@ class ExpandText extends StatefulWidget {
     this.expandWidth = false,
     this.expandOnGesture = true,
     this.hideArrowOnExpanded = false,
+    this.isExpanded = false,
   })  : assert(
           data != null,
           'A non-null String must be provided to a ExpandText widget.',
@@ -123,7 +126,7 @@ class _ExpandTextState extends State<ExpandText>
   Animation<double> _iconTurns;
 
   /// Auxiliary variable to controll expand status.
-  bool _isExpanded = false;
+  bool _isExpanded;
 
   @override
   void initState() {
@@ -134,6 +137,9 @@ class _ExpandTextState extends State<ExpandText>
       duration: widget.animationDuration,
       vsync: this,
     );
+
+    _isExpanded = widget.isExpanded;
+    _isExpanded ? _controller.forward() : _controller.reverse();
 
     // Initializing the animation, depending on the [_easeInCurve] curve
     _heightFactor = _controller.drive(_easeInCurve);
