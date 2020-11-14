@@ -60,6 +60,7 @@ class HomePage extends StatelessWidget {
                     onPressed: () => print('Pressed button0'),
                   ),
                   ExpandChild(
+                    isExpanded: true,
                     child: Column(
                       children: <Widget>[
                         OutlineButton(
